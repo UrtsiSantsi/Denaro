@@ -31,10 +31,20 @@ menu actionsMenu {
   }
 }
 
-Adw.Bin _root {
-  Adw.Flap _flap {
-    flap: Gtk.ScrolledWindow _paneScroll {
-      width-request: 360;
+Adw.BreakpointBin _root {
+  width-request: 360;
+  height-request: 420;
+
+  Adw.Breakpoint {
+    condition ("max-width: 640sp")
+
+    setters {
+      _splitView.collapsed: true;
+    }
+  }
+
+  Adw.OverlaySplitView _splitView {
+    sidebar: Gtk.ScrolledWindow _paneScroll {
       hscrollbar-policy: never;
     
       Gtk.Box {
@@ -189,7 +199,7 @@ Adw.Bin _root {
 
               styles ["flat"]
             }
-          
+
             Gtk.Button _resetTagsFilterButton {
               icon-name: "edit-select-all-symbolic";
               tooltip-text: _("Select All Tags Filters");
@@ -308,18 +318,12 @@ Adw.Bin _root {
             }
           }
         }
-      }  
-      
-      styles ["background"]
+      }
     };
-    
-    separator: Gtk.Separator {
-      orientation: vertical;
-    };
-    
+
     content: Gtk.Overlay {
       vexpand: true;
-      
+
       child: Adw.ViewStack _viewStack {
         Adw.ViewStackPage {
           name: "spinner";
@@ -333,7 +337,7 @@ Adw.Bin _root {
             height-request: 40;
           };
         }
-      
+
         Adw.ViewStackPage {
           name: "no-transactions";
           child: Adw.StatusPage _noTransactionsStatusPage {
@@ -342,14 +346,14 @@ Adw.Bin _root {
             vexpand: true;
           };
         }
-        
+
         Adw.ViewStackPage {
           name: "transactions";
           child: Gtk.Box {
             orientation: vertical;
             hexpand: true;
             vexpand: true;
-            
+
             Adw.PreferencesGroup _visualizeGroup {
               title: _("Visualize");
               margin-top: 4;
@@ -357,39 +361,39 @@ Adw.Bin _root {
               margin-end: 10;
               header-suffix: Gtk.Box {
                 orientation: horizontal;
-                
+
                 Gtk.Button _graphBackButton {
                   valign: center;
                   icon-name: "go-previous-symbolic";
                   tooltip-text: _("Back");
-                  
+
                   styles ["flat"]
                 }
-                
+
                 Gtk.Button _graphNextButton {
                   valign: center;
                   icon-name: "go-next-symbolic";
                   tooltip-text: _("Next");
-                  
+
                   styles ["flat"]
                 }
               };
-              
+
               Gtk.Box {
                 orientation: vertical;
                 spacing: 6;
-                
+
                 Adw.Carousel _carousel {
                   Gtk.DrawingArea _incomeExpenseOverTimeImage {
                     height-request: 300;
                     hexpand: true;
                   }
-                  
+
                   Gtk.DrawingArea _incomeExpensePieImage {
                     height-request: 200;
                     hexpand: true;
                   }
-                  
+
                   Gtk.DrawingArea _incomeExpensePerGroupImage {
                     height-request: 300;
                     hexpand: true;
@@ -399,17 +403,17 @@ Adw.Bin _root {
                     height-request: 300;
                     hexpand: true;
                   }
-                  
+
                   styles ["card"]
                 }
-                
+
                 Adw.CarouselIndicatorDots {
                   halign: center;
                   carousel: _carousel;
                 }
               }
             }
-            
+
             Gtk.Separator _visualizeSeparator {
               orientation: horizontal;
               margin-top: 10;
@@ -417,7 +421,7 @@ Adw.Bin _root {
             
             Gtk.Box {
               orientation: vertical;
-              
+
               Adw.PreferencesGroup _transactionsGroup {
                 title: _("Transactions");
                 margin-top: 8;
@@ -470,7 +474,7 @@ Adw.Bin _root {
           };
         }
       };
-      
+
       [overlay]
       Gtk.Button {
         tooltip-text: _("New Transaction (Ctrl+Shift+N)");
@@ -478,13 +482,13 @@ Adw.Bin _root {
         halign: center;
         valign: end;
         margin-bottom: 10;
-        
+
         Adw.ButtonContent {
           icon-name: "list-add-symbolic";
           label: C_("Transaction", "New");
         }
-        
-        styles ["pill", "suggested-action"] 
+
+        styles ["pill", "suggested-action"]
       }
     };
   }
