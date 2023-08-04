@@ -8,12 +8,10 @@ Adw.Window _root {
   default-widget: _applyButton;
   hide-on-close: true;
 
-  content: Gtk.Box {
-    orientation: vertical;
-
+  content: Adw.ToolbarView {
+    [top]
     Adw.HeaderBar {
       title-widget: Gtk.Label {};
-      styles ["flat"]
     }
 
     Gtk.WindowHandle {
